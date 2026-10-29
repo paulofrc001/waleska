@@ -36,6 +36,7 @@ export interface SiteSettings {
     show_gallery: boolean;
     show_hugs: boolean;
     show_countdown: boolean;
+    auto_approve_messages?: boolean;
   };
   updated_at?: string;
 }

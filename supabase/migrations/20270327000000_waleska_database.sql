@@ -62,15 +62,16 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
 );
 
 -- Inserir configuração padrão inicial caso não exista
-INSERT INTO public.site_settings (id, title, subtitle, main_message, birthday_message, post_birthday_message)
+INSERT INTO public.site_settings (id, title, subtitle, main_message, birthday_message, post_birthday_message, hero_photo)
 VALUES (
     'current',
     'Waleska',
     'Um dia especial merece ser celebrado com muito amor.',
     'Cada mensagem, cada lembrança e cada gesto de carinho tornam essa data ainda mais inesquecível.',
     'Hoje é o grande dia! Feliz aniversário, Waleska!',
-    'O dia passou, mas o carinho continua para sempre.'
-) ON CONFLICT (id) DO NOTHING;
+    'O dia passou, mas o carinho continua para sempre.',
+    '/assets/aistudio/Retrato_elegante_em_tons_creme_ec45ed4e.png'
+) ON CONFLICT (id) DO UPDATE SET hero_photo = EXCLUDED.hero_photo;
 
 -- 6. Tabela de Abraços Virtuais (hugs)
 CREATE TABLE IF NOT EXISTS public.hugs (

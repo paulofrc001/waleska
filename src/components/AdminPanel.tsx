@@ -836,6 +836,35 @@ CREATE TABLE IF NOT EXISTS public.hugs (
                 />
               </div>
 
+              <div className="pt-2">
+                <label className="flex items-start gap-3 p-3 bg-[#FFF9F5] border border-[#F6D5D5] rounded-xl cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={settingsForm.display_settings?.auto_approve_messages ?? true}
+                    onChange={(e) =>
+                      setSettingsForm({
+                        ...settingsForm,
+                        display_settings: {
+                          show_gallery: settingsForm.display_settings?.show_gallery ?? true,
+                          show_hugs: settingsForm.display_settings?.show_hugs ?? true,
+                          show_countdown: settingsForm.display_settings?.show_countdown ?? true,
+                          auto_approve_messages: e.target.checked,
+                        },
+                      })
+                    }
+                    className="mt-0.5 h-4 w-4 rounded border-[#F6D5D5] text-[#612A44] focus:ring-[#C49C62]"
+                  />
+                  <div>
+                    <span className="text-xs font-semibold text-[#612A44] block">
+                      Publicação Automática Imediata de Recados
+                    </span>
+                    <span className="text-[11px] text-[#879783] leading-snug block mt-0.5">
+                      Quando ativado, os recados dos visitantes aparecem imediatamente no mural público sem aguardar aprovação manual (você ainda pode destacar ou remover qualquer recado a qualquer momento).
+                    </span>
+                  </div>
+                </label>
+              </div>
+
               <div className="pt-2 border-t border-[#F6D5D5]">
                 <button
                   type="submit"

@@ -42,6 +42,7 @@ export interface SiteSettings {
     show_gallery: boolean;
     show_hugs: boolean;
     show_countdown: boolean;
+    auto_approve_messages?: boolean;
   };
   updated_at?: string;
 }
@@ -96,7 +97,8 @@ const defaultSettings: SiteSettings = {
   display_settings: {
     show_gallery: true,
     show_hugs: true,
-    show_countdown: true
+    show_countdown: true,
+    auto_approve_messages: true
   }
 };
 
@@ -263,17 +265,24 @@ const StorageService = {
     return msgs.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
   },
 
-  async createMessage(author_name: string, message: string, photos: string[]): Promise<GuestbookMessage> {
+  async createMessage(
+    author_name: string,
+    message: string,
+    photos: string[],
+    initialStatus: 'approved' | 'pending' = 'approved'
+  ): Promise<GuestbookMessage> {
     const id = crypto.randomUUID();
     const now = new Date().toISOString();
+    const approvedAt = initialStatus === 'approved' ? now : null;
 
     const newMessage: GuestbookMessage = {
       id,
       author_name: author_name.trim(),
       message: message.trim(),
-      status: 'pending',
+      status: initialStatus,
       featured: false,
       created_at: now,
+      approved_at: approvedAt,
       updated_at: now,
       photos: []
     };
@@ -286,9 +295,10 @@ const StorageService = {
             id,
             author_name: newMessage.author_name,
             message: newMessage.message,
-            status: 'pending',
+            status: initialStatus,
             featured: false,
             created_at: now,
+            approved_at: approvedAt,
             updated_at: now
           })
           .select()
@@ -301,12 +311,14 @@ const StorageService = {
               message_id: id,
               storage_path: photoPath,
               public_path: photoPath,
-              status: 'pending',
+              status: initialStatus,
               created_at: now
             }));
             await supabaseAdmin.from('message_photos').insert(photoRows);
           }
           return insertedMsg;
+        } else if (msgErr) {
+          console.error('Supabase insert message error:', msgErr);
         }
       } catch (err) {
         console.error('Supabase createMessage error:', err);
@@ -323,7 +335,7 @@ const StorageService = {
           message_id: id,
           storage_path: p,
           public_path: p,
-          status: 'pending',
+          status: initialStatus,
           created_at: now
         };
         local.photos.push(photoObj);
@@ -587,13 +599,21 @@ apiRouter.post('/messages', async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, error: 'É necessário autorizar a publicação do texto e das fotografias.' });
     }
 
+    const currentSettings = await StorageService.getSettings();
+    const shouldAutoApprove = currentSettings.display_settings?.auto_approve_messages ?? true;
+    const initialStatus = shouldAutoApprove ? 'approved' : 'pending';
+
     const safePhotos: string[] = Array.isArray(photos) ? photos.slice(0, 3) : [];
-    const created = await StorageService.createMessage(author_name, message, safePhotos);
+    const created = await StorageService.createMessage(author_name, message, safePhotos, initialStatus);
+
+    const feedbackMessage = shouldAutoApprove
+      ? 'Seu carinho foi recebido e já está publicado no mural de Waleska!'
+      : 'Seu carinho foi recebido! Obrigado por fazer parte dessa homenagem. Sua mensagem aparecerá no mural após aprovação.';
 
     return res.status(201).json({
       success: true,
-      message: 'Seu carinho foi recebido! Obrigado por fazer parte dessa homenagem. Sua mensagem aparecerá no mural após aprovação.',
-      data: { id: created.id }
+      message: feedbackMessage,
+      data: { id: created.id, status: created.status }
     });
   } catch (err: any) {
     return res.status(500).json({ success: false, error: err.message || 'Erro ao processar envio.' });
