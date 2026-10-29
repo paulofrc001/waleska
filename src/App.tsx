@@ -6,6 +6,7 @@ import { InteractiveActions } from './components/InteractiveActions';
 import { MessageForm } from './components/MessageForm';
 import { GuestbookGrid } from './components/GuestbookGrid';
 import { MemoryGallery } from './components/MemoryGallery';
+import { PhotoLightbox } from './components/PhotoLightbox';
 import { Footer } from './components/Footer';
 import { AdminPanel } from './components/AdminPanel';
 import { apiClient } from './services/apiClient';
@@ -18,6 +19,17 @@ export function App() {
   const [photos, setPhotos] = useState<MessagePhoto[]>([]);
   const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+
+  // Lightbox for enlarging clicked photos from guestbook or mural
+  const [lightboxState, setLightboxState] = useState<{
+    isOpen: boolean;
+    photos: { url: string; author?: string; caption?: string }[];
+    currentIndex: number;
+  }>({
+    isOpen: false,
+    photos: [],
+    currentIndex: 0,
+  });
 
   // Date Simulator state for testing
   const [mockMode, setMockMode] = useState<'real' | 'birthday' | 'passed'>('real');
@@ -93,7 +105,12 @@ export function App() {
   };
 
   // Build mapping of photo message authors
-  const messageAuthorMap: Record<string, { author: string; message: string }> = {};
+  const messageAuthorMap: Record<string, { author: string; message: string }> = {
+    'official-waleska': {
+      author: 'Waleska',
+      message: 'Retrato especial da aniversariante',
+    },
+  };
   messages.forEach((m) => {
     if (m.photos) {
       m.photos.forEach((p) => {
@@ -180,6 +197,13 @@ export function App() {
           messages={messages}
           isLoading={isLoadingMessages}
           onWriteClick={scrollToMessageForm}
+          onSelectPhoto={(photoUrl, author, caption) => {
+            setLightboxState({
+              isOpen: true,
+              photos: [{ url: photoUrl, author, caption }],
+              currentIndex: 0,
+            });
+          }}
         />
 
         {/* 6. Collective Memory Gallery */}
@@ -191,6 +215,15 @@ export function App() {
           />
         )}
       </main>
+
+      {/* Lightbox for clicked photos */}
+      <PhotoLightbox
+        isOpen={lightboxState.isOpen}
+        onClose={() => setLightboxState(prev => ({ ...prev, isOpen: false }))}
+        photos={lightboxState.photos}
+        currentIndex={lightboxState.currentIndex}
+        onNavigate={(newIdx) => setLightboxState(prev => ({ ...prev, currentIndex: newIdx }))}
+      />
 
       {/* Footer */}
       <Footer

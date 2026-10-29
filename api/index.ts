@@ -414,6 +414,15 @@ const StorageService = {
   },
 
   async getApprovedPhotos(): Promise<MessagePhoto[]> {
+    const waleskaOfficialPhoto: MessagePhoto = {
+      id: 'waleska-official-portrait',
+      message_id: 'official-waleska',
+      storage_path: '/waleska.png',
+      public_path: '/waleska.png',
+      status: 'approved',
+      created_at: '2026-10-29T00:00:00.000Z'
+    };
+
     if (supabaseAdmin) {
       try {
         const { data, error } = await supabaseAdmin
@@ -421,13 +430,23 @@ const StorageService = {
           .select('*')
           .eq('status', 'approved')
           .order('created_at', { ascending: false });
-        if (data && !error) return data;
+        if (data && !error) {
+          const list = [...data];
+          if (!list.some(p => p.public_path === '/waleska.png' || p.public_path.includes('Retrato_elegante'))) {
+            list.unshift(waleskaOfficialPhoto);
+          }
+          return list;
+        }
       } catch (err) {
         console.error('Supabase getApprovedPhotos error:', err);
       }
     }
     const local = ensureDataFile();
-    return local.photos.filter(p => p.status === 'approved');
+    const approved = local.photos.filter(p => p.status === 'approved');
+    if (!approved.some(p => p.public_path === '/waleska.png' || p.public_path.includes('Retrato_elegante'))) {
+      approved.unshift(waleskaOfficialPhoto);
+    }
+    return approved;
   },
 
   async getAllPhotos(): Promise<MessagePhoto[]> {
@@ -712,12 +731,12 @@ apiRouter.post('/upload-direct', async (req: Request, res: Response) => {
     const ext = mime === 'image/png' ? 'png' : mime === 'image/webp' ? 'webp' : 'jpg';
     const randomName = `${crypto.randomUUID()}.${ext}`;
 
-    // Upload to Supabase Storage if configured
+    // Upload directly to Supabase Storage public bucket
     if (supabaseAdmin) {
       try {
         const { error: uploadError } = await supabaseAdmin.storage
-          .from('uploads-pending')
-          .upload(randomName, buffer, { contentType: mime, upsert: false });
+          .from('gallery-public')
+          .upload(randomName, buffer, { contentType: mime, upsert: true });
 
         if (!uploadError) {
           const { data: publicUrlData } = supabaseAdmin.storage
@@ -726,9 +745,11 @@ apiRouter.post('/upload-direct', async (req: Request, res: Response) => {
 
           return res.json({
             success: true,
-            filePath: publicUrlData?.publicUrl || `/uploads/${randomName}`,
-            storagePath: `uploads-pending/${randomName}`
+            filePath: publicUrlData.publicUrl,
+            storagePath: `gallery-public/${randomName}`
           });
+        } else {
+          console.error('Supabase upload error to gallery-public:', uploadError);
         }
       } catch (e) {
         console.warn('Supabase storage upload error:', e);
