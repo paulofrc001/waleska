@@ -135,13 +135,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
     setIsAuthenticated(false);
   };
 
+  const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+    setToastMessage({ text, type });
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
   // Moderation Actions
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected') => {
     try {
       await apiClient.updateMessageStatus(id, status);
       await loadAdminData();
+      showToast(status === 'approved' ? 'Recado aprovado e publicado!' : 'Recado rejeitado.');
     } catch (err: any) {
-      alert(err.message || 'Erro ao atualizar recado.');
+      showToast(err.message || 'Erro ao atualizar recado.', 'error');
     }
   };
 
@@ -151,18 +159,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
       if (!msg) return;
       await apiClient.updateMessageStatus(id, msg.status, !msg.featured);
       await loadAdminData();
+      showToast(!msg.featured ? 'Recado marcado como destaque!' : 'Destaque removido.');
     } catch (err: any) {
-      alert(err.message || 'Erro ao alterar destaque.');
+      showToast(err.message || 'Erro ao alterar destaque.', 'error');
     }
   };
 
   const handleDeleteMessage = async (id: string) => {
-    if (!confirm('Tem certeza que deseja excluir permanentemente este recado?')) return;
     try {
       await apiClient.deleteMessage(id);
       await loadAdminData();
+      showToast('Recado excluído com sucesso.');
     } catch (err: any) {
-      alert(err.message || 'Erro ao excluir recado.');
+      showToast(err.message || 'Erro ao excluir recado.', 'error');
     }
   };
 
@@ -171,8 +180,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
     try {
       await apiClient.updatePhotoStatus(id, status);
       await loadAdminData();
+      showToast(status === 'approved' ? 'Fotografia aprovada!' : 'Fotografia ocultada.');
     } catch (err: any) {
-      alert(err.message || 'Erro ao alterar foto.');
+      showToast(err.message || 'Erro ao alterar foto.', 'error');
     }
   };
 
@@ -182,9 +192,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
       setSettings(updated);
       setSettingsForm(updated);
       if (onSettingsUpdated) onSettingsUpdated(updated);
-      alert('Fotografia principal da página inicial atualizada com sucesso!');
+      showToast('Fotografia principal atualizada com sucesso!');
     } catch (err: any) {
-      alert(err.message || 'Erro ao atualizar foto principal.');
+      showToast(err.message || 'Erro ao atualizar foto principal.', 'error');
     }
   };
 
@@ -196,9 +206,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
       await apiClient.addAdminPhoto(newAdminPhotoUrl.trim());
       setNewAdminPhotoUrl('');
       await loadAdminData();
-      alert('Foto adicionada com sucesso ao álbum!');
+      showToast('Foto adicionada com sucesso ao álbum!');
     } catch (err: any) {
-      alert(err.message || 'Erro ao adicionar foto.');
+      showToast(err.message || 'Erro ao adicionar foto.', 'error');
     } finally {
       setUploadAdminLoading(false);
     }
@@ -214,9 +224,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onSettingsUpdat
       setSettings(updated);
       if (onSettingsUpdated) onSettingsUpdated(updated);
       setSaveSettingsSuccess(true);
+      showToast('Configurações salvas com sucesso!');
       setTimeout(() => setSaveSettingsSuccess(false), 3000);
     } catch (err: any) {
-      alert(err.message || 'Erro ao salvar configurações');
+      showToast(err.message || 'Erro ao salvar configurações', 'error');
     } finally {
       setSaveSettingsLoading(false);
     }
@@ -401,6 +412,32 @@ CREATE TABLE IF NOT EXISTS public.hugs (
             </button>
           </div>
         </div>
+
+        {/* Action Toast Notification Banner */}
+        {toastMessage && (
+          <div
+            className={`px-6 py-2.5 text-xs font-medium flex items-center justify-between border-b transition-all duration-300 animate-in fade-in ${
+              toastMessage.type === 'error'
+                ? 'bg-red-50 text-red-800 border-red-200'
+                : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {toastMessage.type === 'error' ? (
+                <AlertCircle className="w-4 h-4 text-red-600" />
+              ) : (
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              )}
+              <span>{toastMessage.text}</span>
+            </div>
+            <button
+              onClick={() => setToastMessage(null)}
+              className="p-1 hover:bg-black/5 rounded-full"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
 
         {/* Dashboard Stat Counters */}
         {stats && (

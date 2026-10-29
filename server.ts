@@ -11,7 +11,8 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = process.env.PORT || 3000;
+  // Dev server must run on port 3000 per environment constraints
+  const PORT = 3000;
   const isProd = process.env.NODE_ENV === 'production';
 
   app.use(express.json({ limit: '10mb' }));
@@ -22,6 +23,12 @@ async function startServer() {
 
   // Mount API router
   app.use('/api', apiRouter);
+
+  // Global error handler for API routes to always return JSON
+  app.use('/api', (err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    console.error('API Error:', err);
+    res.status(500).json({ success: false, error: err.message || 'Erro interno do servidor' });
+  });
 
   if (!isProd) {
     // Vite middleware in dev
@@ -39,8 +46,8 @@ async function startServer() {
     });
   }
 
-  app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running at http://0.0.0.0:${PORT}`);
   });
 }
 
