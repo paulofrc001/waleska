@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // --- Types ---
@@ -561,6 +562,15 @@ const StorageService = {
 // --- Router Definition ---
 export const apiRouter = express.Router();
 
+apiRouter.get('/', (_req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    message: 'API do Aniversário de Waleska está ativa.',
+    version: '1.0.0',
+    database: hasSupabaseServer ? 'supabase_connected' : 'local_storage_demo'
+  });
+});
+
 apiRouter.get('/health', async (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
@@ -835,6 +845,26 @@ apiRouter.get('/admin/export', async (req: Request, res: Response) => {
 
 // --- Express App Export for Vercel Serverless Function & Local Dev ---
 const app = express();
+
+// CORS Headers
+app.use((_req: Request, res: Response, next: NextFunction) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (_req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
+// Middleware to normalize URL in case Vercel rewrote it to /api/index
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  if (req.originalUrl && req.originalUrl.startsWith('/api')) {
+    req.url = req.originalUrl;
+  }
+  next();
+});
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
