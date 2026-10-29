@@ -1,0 +1,8 @@
+{
+  "name": "Waleska — Contagem para um Dia Especial",
+  "description": "Página digital comemorativa dedicada ao aniversário de Waleska em 27 de março de 2027, com contagem regressiva em tempo real, mural de recados, galeria de memórias e moderação administrativa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

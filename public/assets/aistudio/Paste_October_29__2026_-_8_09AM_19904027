@@ -1,0 +1,967 @@
+# PROJETO: WALESKA — CONTAGEM PARA UM DIA ESPECIAL
+
+## MISSÃO
+
+Atue como uma equipe sênior composta por desenvolvedor full-stack, designer UI/UX, especialista em animações, arquiteto de software e especialista em segurança.
+
+Desenvolva um aplicativo web completo, moderno, elegante, responsivo e funcional, chamado:
+
+**"Waleska — Contagem para um Dia Especial"**
+
+O aplicativo será uma página digital comemorativa dedicada ao aniversário de Waleska, que acontecerá em **27 de março de 2027**.
+
+Seu propósito é reunir pessoas queridas em um ambiente virtual acolhedor, permitindo acompanhar uma contagem regressiva, escrever mensagens de carinho e compartilhar fotografias e lembranças.
+
+O projeto precisa ser funcional de verdade, com persistência de dados, autenticação administrativa e hospedagem compatível com a Vercel.
+
+Não quero apenas uma landing page estática, um protótipo visual ou botões sem funcionalidades.
+
+**Requisitos obrigatórios:**
+- Interface em português brasileiro.
+- Responsividade completa, priorizando smartphones.
+- Design sofisticado, emocional, intuitivo e memorável.
+- Contador regressivo real.
+- Mural público de recados persistentes.
+- Upload opcional de fotografias.
+- Galeria dinâmica de memórias.
+- Painel administrativo seguro.
+- Moderação antes da publicação.
+- Banco de dados real.
+- Integração com Supabase.
+- Código preparado para GitHub e Vercel.
+- Documentação de instalação e configuração.
+
+Não invente idade, local de festa, horário de comemoração ou informações pessoais que não foram fornecidas.
+
+---
+
+# 1. DIREÇÃO DE ARTE E EXPERIÊNCIA VISUAL
+
+Crie uma identidade visual com conceito de "Jardim de Memórias".
+
+A estética deve combinar a delicadeza de um convite comemorativo com a elegância de uma revista digital moderna.
+
+O site precisa transmitir carinho, afeto, alegria, expectativa e exclusividade.
+
+## Paleta de cores
+
+Utilize preferencialmente:
+
+- Creme: #FFF9F5
+- Rosa blush: #F6D5D5
+- Rosa pêssego: #F5B5A4
+- Vinho sofisticado: #612A44
+- Dourado suave: #C49C62
+- Verde sálvia: #879783
+- Branco: #FFFFFF
+
+As cores precisam ter contraste adequado para leitura.
+
+## Tipografia
+
+Utilize combinações harmoniosas de fontes disponíveis no Google Fonts:
+
+- Playfair Display ou Cormorant Garamond para títulos.
+- DM Sans ou Inter para textos e interface.
+- Allura ou outra fonte manuscrita elegante apenas em detalhes especiais.
+
+Não comprometa a legibilidade utilizando fontes decorativas em excesso.
+
+## Elementos visuais
+
+Trabalhe com:
+
+- Gradientes suaves.
+- Flores e pétalas delicadas.
+- Estrelas e brilhos pontuais.
+- Balões estilizados discretos.
+- Cartões arredondados.
+- Sombras leves.
+- Molduras inspiradas em fotografias Polaroid.
+- Efeitos de profundidade suaves.
+- Divisórias decorativas.
+- Microinterações ao passar o cursor ou tocar na tela.
+
+O resultado deve parecer desenvolvido por uma equipe profissional de design.
+
+Evite aparência infantil, excesso de elementos, cores agressivas, animações pesadas e visuais genéricos.
+
+## Animações
+
+Utilize Motion para React ou biblioteca equivalente, juntamente com animações CSS otimizadas.
+
+Implemente:
+
+- Entrada elegante do título.
+- Revelação progressiva das seções durante a rolagem.
+- Pequena animação na troca dos números do contador.
+- Transições suaves entre páginas e estados.
+- Efeitos discretos em botões.
+- Movimento delicado de pétalas ou elementos decorativos.
+- Confetes em momentos comemorativos.
+
+Respeite a configuração `prefers-reduced-motion` e reduza animações quando necessário.
+
+Não reproduza sons automaticamente.
+
+---
+
+# 2. ESTRUTURA DA PÁGINA INICIAL
+
+Criar uma experiência preferencialmente One Page, com navegação por âncoras e seções bem organizadas.
+
+## Cabeçalho
+
+Criar um menu elegante contendo:
+
+- Início
+- Contagem regressiva
+- Deixe seu recado
+- Mural de carinho
+- Nossas lembranças
+
+Adicionar um botão destacado:
+
+"Deixar uma mensagem"
+
+No celular, utilizar menu compacto e navegação intuitiva.
+
+O cabeçalho deve se adaptar à rolagem, com efeito discreto de transparência.
+
+## Seção principal — Hero
+
+Criar uma apresentação visual impactante.
+
+Título principal:
+
+"Waleska"
+
+Subtítulo:
+
+"Um dia especial merece ser celebrado com muito amor."
+
+Texto complementar:
+
+"Cada mensagem, cada lembrança e cada gesto de carinho tornam essa data ainda mais inesquecível."
+
+Exibir:
+
+"27 de março de 2027"
+
+Adicionar uma área de destaque para fotografia da aniversariante.
+
+Caso nenhuma fotografia tenha sido enviada, mostrar uma composição decorativa elegante sem inventar o rosto de Waleska.
+
+A fotografia deve ser facilmente substituída pelo painel administrativo.
+
+Se o usuário enviar uma fotografia real, preservar a aparência original, as características faciais, proporções, tom de pele e demais detalhes. Não reinterpretar rostos com IA.
+
+Botões principais:
+
+"Deixar meu carinho"
+
+"Ver as lembranças"
+
+Adicionar indicador de rolagem.
+
+---
+
+# 3. CONTAGEM REGRESSIVA EM TEMPO REAL
+
+Esta é uma das principais atrações do aplicativo.
+
+## Data oficial
+
+27 de março de 2027, às 00h00, no fuso horário America/Sao_Paulo.
+
+O contador deve ser calculado com base no instante correto, independente do fuso horário do navegador do visitante.
+
+## Exibição
+
+Mostrar quatro cartões grandes:
+
+DIAS | HORAS | MINUTOS | SEGUNDOS
+
+Cada número deve possuir:
+
+- Fonte grande e elegante.
+- Dígitos tabulares para evitar mudanças no tamanho dos cartões.
+- Atualização automática a cada segundo.
+- Animação suave de transição.
+- Design adequado para telas pequenas.
+
+Texto acima:
+
+"Falta pouco para o grande dia!"
+
+Texto abaixo:
+
+"Cada segundo nos aproxima de uma data inesquecível."
+
+## Regras técnicas
+
+- Utilizar cálculo por diferença entre timestamps.
+- Não depender da quantidade de execuções do setInterval para contar o tempo.
+- Corrigir automaticamente atrasos quando a aba ficar inativa.
+- Evitar resultados negativos.
+- Não apresentar valores NaN.
+- Atualizar corretamente após mudança de dia.
+- Liberar os timers quando o componente for desmontado.
+- Oferecer atualização acessível para leitores de tela sem anunciar cada segundo.
+
+## Comportamento quando o contador terminar
+
+A partir de 27/03/2027, às 00h00 em São Paulo:
+
+Substituir a contagem regressiva por:
+
+"Hoje é o grande dia!"
+
+"Feliz aniversário, Waleska!"
+
+Apresentar uma animação especial de confetes, flores e brilhos, sem prejudicar o desempenho.
+
+Mostrar um botão:
+
+"Deixe seu parabéns!"
+
+O efeito principal de confetes deve ser apresentado uma vez por sessão, evitando repetição excessiva.
+
+Em 28/03/2027 e posteriormente, apresentar:
+
+"O dia passou, mas o carinho continua para sempre."
+
+Preservar o mural e a galeria. Não reiniciar automaticamente a contagem para o próximo aniversário.
+
+---
+
+# 4. MURAL DE RECADOS
+
+Criar a seção:
+
+"Um mural cheio de carinho"
+
+Texto de apresentação:
+
+"Algumas palavras ficam guardadas para sempre no coração. Deixe aqui uma mensagem especial para Waleska."
+
+## Formulário de envio
+
+Campos:
+
+**Seu nome**
+- Obrigatório.
+- Máximo de 60 caracteres.
+
+**Seu recado para Waleska**
+- Obrigatório.
+- Entre 5 e 1.000 caracteres.
+- Exibir contador de caracteres.
+
+**Compartilhar uma lembrança**
+- Opcional.
+- Permitir anexar até 3 fotografias.
+- Aceitar JPEG, PNG e WebP.
+- Limite de 4 MB por fotografia.
+- Permitir fotografias de celular.
+- Mostrar miniaturas antes do envio.
+- Permitir remover ou substituir arquivos.
+- Otimizar imagens quando possível, sem alterar o conteúdo visual.
+
+**Consentimento**
+- Checkbox obrigatório para confirmar autorização de publicação do texto e das fotografias enviadas.
+
+Botão principal:
+
+"Enviar meu carinho"
+
+## Experiência de envio
+
+Ao enviar:
+
+1. Validar campos.
+2. Validar arquivos.
+3. Exibir indicador de processamento.
+4. Enviar os dados para o backend.
+5. Armazenar o recado como pendente.
+6. Mostrar confirmação elegante.
+
+Mensagem de confirmação:
+
+"Seu carinho foi recebido! Obrigado por fazer parte dessa homenagem. Sua mensagem aparecerá no mural após aprovação."
+
+Não mostrar mensagens pendentes publicamente.
+
+Não exibir confirmação de sucesso antes de receber resposta positiva da API.
+
+Em caso de erro, manter o conteúdo digitado e permitir nova tentativa.
+
+Não exigir cadastro dos visitantes.
+
+---
+
+# 5. EXIBIÇÃO DO MURAL
+
+Criar uma área pública com todos os recados aprovados.
+
+Design inspirado em cartões comemorativos e pequenos bilhetes.
+
+Cada cartão deve mostrar:
+
+- Nome da pessoa.
+- Mensagem.
+- Data de publicação.
+- Fotografia anexada, quando existente.
+- Elemento decorativo delicado.
+
+As mensagens devem possuir tipografia agradável e leitura confortável.
+
+Adicionar suporte a:
+
+- Ordenação dos mais recentes para os mais antigos.
+- Paginação ou botão "Carregar mais".
+- Estado vazio elegante.
+- Animações suaves ao inserir novos cartões.
+- Atualização de conteúdo após novas aprovações.
+- Destaque opcional para mensagens selecionadas pelo administrador.
+
+Texto para o mural vazio:
+
+"Este espaço está esperando as primeiras palavras de carinho para Waleska."
+
+Não inventar mensagens de familiares ou amigos para preencher o mural público.
+
+Se houver dados demonstrativos em desenvolvimento, identificá-los explicitamente como demonstração e não incluí-los na publicação de produção.
+
+---
+
+# 6. GALERIA DE FOTOGRAFIAS
+
+Criar uma seção:
+
+"Nossas lembranças"
+
+Texto:
+
+"Momentos especiais merecem um lugar para viver para sempre."
+
+A galeria deve funcionar como um álbum digital coletivo.
+
+## Funcionalidades
+
+- Exibir fotografias aprovadas.
+- Integrar imagens anexadas aos recados.
+- Permitir fotografias adicionais enviadas pelo administrador.
+- Layout adaptativo em grade ou mosaico.
+- Molduras delicadas.
+- Efeito hover suave.
+- Visualização ampliada em lightbox.
+- Navegação entre fotos.
+- Botão de fechar.
+- Suporte a teclado, toque e acessibilidade.
+- Carregamento otimizado.
+- Imagens responsivas.
+- Lazy loading.
+
+Quando uma fotografia estiver associada a um recado, mostrar opcionalmente o nome do autor e a mensagem correspondente.
+
+Caso nenhuma foto exista, mostrar um estado vazio bonito, explicando que a galeria será preenchida com novas lembranças.
+
+Não carregar imagens fictícias de pessoas para aparentar que já existe conteúdo.
+
+## Tratamento de fotografias
+
+- Preservar fidelidade visual.
+- Não modificar rostos ou expressões.
+- Não aplicar filtros de embelezamento.
+- Não inventar características.
+- Não usar geração de IA sobre fotos enviadas.
+- Permitir apenas correção técnica de formato, orientação e compressão.
+
+---
+
+# 7. EXPERIÊNCIAS INTERATIVAS
+
+Adicionar recursos que tornem o aplicativo especial sem sobrecarregá-lo.
+
+## Botão "Enviar um abraço"
+
+Criar um botão com ícone de coração.
+
+Ao clicar, mostrar uma pequena animação de coração flutuando e uma mensagem:
+
+"Um abraço cheio de carinho enviado para Waleska!"
+
+A contagem total de abraços poderá ser persistida no banco de dados, com proteção contra abuso.
+
+Caso a persistência dessa funcionalidade não esteja configurada, não apresentar número de abraços fictício.
+
+## Compartilhamento
+
+Criar botão:
+
+"Compartilhar com alguém especial"
+
+Implementar:
+
+- Compartilhamento nativo do dispositivo, quando disponível.
+- Compartilhamento por WhatsApp.
+- Cópia do endereço da página.
+- Feedback visual após copiar.
+
+Mensagem sugerida para WhatsApp:
+
+"Estamos contando os dias para o aniversário da Waleska! 💕 Entre, acompanhe a contagem regressiva e deixe uma mensagem especial: [URL DO SITE]"
+
+Utilizar a URL real da implantação.
+
+## Adicionar à agenda
+
+Criar um botão opcional:
+
+"Salvar a data"
+
+Gerar evento de dia inteiro para 27/03/2027, compatível com calendário.
+
+Não presumir local nem horário de festa.
+
+## Música
+
+Permitir futuramente configurar uma música de fundo disponibilizada pelo administrador, desde que haja autorização para utilização.
+
+A música deve ser opcional, iniciar apenas após interação do visitante e possuir controles de reprodução e pausa.
+
+Não exigir integração com Spotify nem reproduzir áudio protegido sem autorização.
+
+---
+
+# 8. PAINEL ADMINISTRATIVO
+
+Criar rota protegida:
+
+`/admin`
+
+Somente usuários administradores autorizados poderão acessá-la.
+
+## Autenticação
+
+Utilizar Supabase Auth com e-mail e senha.
+
+Não utilizar senha fixa no frontend.
+
+Não criar credenciais fictícias de administrador.
+
+Validar autenticação e autorização no servidor.
+
+Manter uma tabela de administradores autorizados por user_id do Supabase Auth.
+
+## Dashboard
+
+Mostrar cartões com indicadores:
+
+- Total de recados recebidos.
+- Recados aguardando aprovação.
+- Recados aprovados.
+- Recados rejeitados.
+- Total de fotografias aprovadas.
+
+## Gerenciamento de recados
+
+Criar uma tabela ou lista administrativa com:
+
+- Autor.
+- Mensagem.
+- Data.
+- Fotos anexadas.
+- Status.
+- Ações disponíveis.
+
+Ações:
+
+- Aprovar.
+- Rejeitar.
+- Excluir.
+- Destacar.
+- Remover destaque.
+- Filtrar por status.
+- Pesquisar por nome.
+- Visualizar conteúdo completo.
+
+A aprovação e a rejeição devem realmente atualizar o banco de dados.
+
+## Gerenciamento de fotos
+
+O administrador poderá:
+
+- Visualizar arquivos pendentes.
+- Aprovar fotografias.
+- Rejeitar fotografias inadequadas.
+- Excluir imagens.
+- Adicionar fotografias próprias.
+- Definir fotografia de destaque na página inicial.
+
+Permitir controle individual das imagens de um recado, quando necessário, sem obrigar a exclusão de toda a mensagem.
+
+## Personalização da página
+
+Criar uma área de configurações com:
+
+- Título principal.
+- Frase de apresentação.
+- Mensagem de aniversário.
+- Fotografia principal.
+- Cores da identidade visual.
+- Exibição ou ocultação da galeria.
+- Exibição ou ocultação do botão de abraço.
+- Texto final de agradecimento.
+
+Essas configurações precisam ser salvas no banco de dados.
+
+## Exportação
+
+Permitir exportar os recados aprovados em CSV e JSON, com codificação UTF-8, para que as mensagens possam ser guardadas posteriormente.
+
+---
+
+# 9. ARQUITETURA TÉCNICA
+
+Utilizar uma arquitetura compatível com o Google AI Studio e publicação na Vercel.
+
+## Stack preferencial
+
+Frontend:
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- Lucide React.
+- Motion para React.
+- Componentes acessíveis e reutilizáveis.
+
+Backend:
+- Node.js com endpoints HTTP.
+- Vercel Functions para as rotas de produção.
+- Validação de entrada com Zod ou equivalente.
+- Separação entre código de interface e lógica de servidor.
+
+Banco de dados:
+- Supabase PostgreSQL.
+
+Autenticação:
+- Supabase Auth.
+
+Arquivos:
+- Supabase Storage.
+
+Proteção contra spam:
+- Cloudflare Turnstile com validação no servidor.
+- Limitação de frequência de requisições.
+
+O projeto gerado precisa utilizar uma arquitetura consistente. Não misturar frameworks incompatíveis.
+
+Caso a estrutura inicial do Google AI Studio utilize Vite com React, preservá-la e implementar os endpoints em diretórios compatíveis com Vercel Functions.
+
+Não depender de um processo Express permanentemente ativo em produção na Vercel.
+
+Preparar a configuração necessária para que as rotas `/api` sejam preservadas e não interceptadas por rewrites da SPA.
+
+---
+
+# 10. BANCO DE DADOS
+
+Criar o SQL necessário para implementar as seguintes estruturas:
+
+## guestbook_messages
+
+Campos:
+
+- id: UUID, chave primária.
+- author_name: texto obrigatório.
+- message: texto obrigatório.
+- status: pending, approved ou rejected.
+- featured: boolean.
+- created_at: timestamp.
+- approved_at: timestamp opcional.
+- updated_at: timestamp.
+
+## message_photos
+
+Campos:
+
+- id: UUID.
+- message_id: referência ao recado.
+- storage_path: caminho do arquivo.
+- public_path: caminho público após aprovação, quando aplicável.
+- status: pending, approved ou rejected.
+- created_at: timestamp.
+
+## site_settings
+
+Campos para:
+
+- Título.
+- Subtítulo.
+- Mensagem principal.
+- Mensagem de aniversário.
+- Foto principal.
+- Tema visual.
+- Configurações de exibição.
+
+## admin_users
+
+Campos:
+
+- user_id: UUID referenciando usuário autenticado.
+- created_at.
+
+## upload_intents
+
+Criar estrutura para controlar autorizações temporárias de upload, incluindo identificador, expiração, arquivos autorizados e estado de utilização.
+
+## hugs
+
+Criar estrutura apropriada para registrar abraços virtuais, caso essa funcionalidade seja implementada.
+
+Criar migrations SQL versionadas e instruções claras para executá-las no Supabase.
+
+Ativar Row Level Security nas tabelas necessárias.
+
+O público só poderá consultar dados explicitamente aprovados.
+
+Não permitir que visitantes alterem diretamente os status, aprovem recados ou modifiquem configurações.
+
+---
+
+# 11. UPLOAD SEGURO DE FOTOGRAFIAS
+
+Implementar armazenamento seguro e persistente.
+
+Criar dois buckets:
+
+`uploads-pending` — privado.
+
+`gallery-public` — público apenas para fotografias aprovadas.
+
+## Fluxo de envio
+
+1. O visitante preenche o recado.
+2. A aplicação valida os dados.
+3. O backend valida o Turnstile e aplica limite de frequência.
+4. O backend cria uma autorização temporária de upload.
+5. O navegador envia os arquivos diretamente para o Supabase Storage com URLs ou tokens de upload assinados.
+6. O backend verifica se os arquivos pertencem à autorização e respeitam os limites.
+7. O recado e as referências às fotografias são registrados como pendentes.
+8. O administrador analisa o conteúdo.
+9. Fotografias aprovadas são transferidas ou copiadas de forma segura para o bucket público.
+10. Fotografias rejeitadas são removidas do armazenamento privado.
+
+Não enviar fotografias grandes como payload base64 dentro do JSON do recado.
+
+Não guardar imagens apenas no localStorage.
+
+Não depender do sistema de arquivos temporário da Vercel para persistência.
+
+Validar formatos, tamanho, metadados e associação dos uploads no servidor.
+
+Usar nomes de arquivo aleatórios e seguros, evitando confiar no nome enviado pelo navegador.
+
+Implementar limpeza de uploads temporários abandonados.
+
+Uma imagem pendente nunca deve possuir URL pública permanente.
+
+---
+
+# 12. SEGURANÇA, MODERAÇÃO E PRIVACIDADE
+
+Implementar:
+
+- Autenticação real de administradores.
+- Autorização em todas as rotas protegidas.
+- Validação de campos no servidor.
+- Proteção contra XSS.
+- Proteção contra injeção de SQL.
+- Sanitização adequada de conteúdo.
+- Restrição de tipos de arquivo.
+- Restrição de tamanho de arquivo.
+- Proteção anti-spam.
+- Validação de Turnstile no backend.
+- Limitação de frequência de envio.
+- Mensagens de erro amigáveis.
+- Logs seguros sem exposição de informações sensíveis.
+
+O frontend não poderá acessar chaves administrativas do Supabase.
+
+A variável `SUPABASE_SERVICE_ROLE_KEY` deve existir exclusivamente no servidor.
+
+O administrador precisa ser identificado por autorização real, não por um parâmetro ou senha visível no navegador.
+
+Não implementar aprovação por simples alteração de valores no cliente.
+
+Adicionar um aviso de privacidade breve e claro.
+
+Não solicitar telefone, endereço ou e-mail de quem apenas deseja escrever um recado.
+
+O visitante deve compreender que sua mensagem e fotografias poderão ser exibidas publicamente após aprovação.
+
+Disponibilizar um canal configurável para solicitação de exclusão de conteúdo.
+
+---
+
+# 13. COMPONENTES REUTILIZÁVEIS
+
+Criar componentes bem organizados, como:
+
+- Header
+- HeroSection
+- BirthdayCountdown
+- CountdownDigit
+- MessageForm
+- PhotoUploader
+- GuestbookCard
+- GuestbookGrid
+- MemoryGallery
+- PhotoLightbox
+- FloatingDecorations
+- ShareButton
+- VirtualHugButton
+- CelebrationOverlay
+- Footer
+- AdminLogin
+- AdminDashboard
+- MessageModeration
+- GalleryManagement
+- SiteSettingsEditor
+
+Separar componentes, hooks, tipos, serviços e utilitários.
+
+Evitar um único arquivo gigante contendo toda a aplicação.
+
+---
+
+# 14. RESPONSIVIDADE E ACESSIBILIDADE
+
+Priorizar o uso em celulares, pois o link será compartilhado principalmente por WhatsApp.
+
+Testar:
+
+- Smartphone compacto.
+- Smartphone grande.
+- Tablet.
+- Notebook.
+- Desktop.
+
+Requisitos:
+
+- Nenhuma rolagem horizontal involuntária.
+- Botões confortáveis para toque.
+- Formulários fáceis de preencher.
+- Contador legível em pequenas telas.
+- Fotografias ajustadas sem distorção.
+- Modais utilizáveis no celular.
+- Menu acessível.
+- Estados de foco visíveis.
+- Contraste adequado.
+- Labels de formulário.
+- Mensagens de erro acessíveis.
+- Navegação por teclado.
+
+Buscar compatibilidade com WCAG 2.2 nível AA.
+
+---
+
+# 15. DESEMPENHO E SEO
+
+O aplicativo precisa carregar rapidamente mesmo em redes móveis.
+
+Implementar:
+
+- Otimização de imagens.
+- Lazy loading.
+- Code splitting quando necessário.
+- Evitar bibliotecas excessivamente pesadas.
+- Cache adequado.
+- Reservar espaço de imagens para evitar saltos de layout.
+- Metadados para compartilhamento.
+- Favicon personalizado.
+- Open Graph com título e descrição.
+- Imagem especial de compartilhamento.
+- Título HTML adequado.
+- Meta description.
+- URLs amigáveis.
+
+Título sugerido:
+
+"Waleska | Um Dia Especial — 27 de Março de 2027"
+
+Descrição sugerida:
+
+"Uma homenagem especial para Waleska. Acompanhe a contagem regressiva, deixe seu carinho e compartilhe lembranças inesquecíveis."
+
+Bloquear a indexação da área administrativa.
+
+---
+
+# 16. EXPERIÊNCIA APÓS O ANIVERSÁRIO
+
+O aplicativo deverá continuar acessível após 27/03/2027.
+
+Criar três estados:
+
+ANTES DO ANIVERSÁRIO:
+- Contador ativo.
+- Mensagem de expectativa.
+- Mural e galeria abertos.
+
+NO DIA DO ANIVERSÁRIO:
+- Mensagem principal de parabéns.
+- Animação de celebração.
+- Mural disponível para felicitações.
+- Galeria funcionando normalmente.
+
+DEPOIS DO ANIVERSÁRIO:
+- Mensagem de agradecimento.
+- Galeria de memórias.
+- Mural preservado.
+- Sem contagem regressiva negativa.
+
+Os recados aprovados não poderão desaparecer por causa da mudança de data.
+
+---
+
+# 17. VARIÁVEIS DE AMBIENTE
+
+Criar arquivo `.env.example` com as configurações necessárias.
+
+Considerar:
+
+`VITE_SUPABASE_URL`
+
+`VITE_SUPABASE_ANON_KEY`
+
+`SUPABASE_URL`
+
+`SUPABASE_SERVICE_ROLE_KEY`
+
+`VITE_TURNSTILE_SITE_KEY`
+
+`TURNSTILE_SECRET_KEY`
+
+`SITE_URL`
+
+Documentar a finalidade de cada variável.
+
+Nunca incluir valores secretos verdadeiros no repositório.
+
+Os endpoints deverão funcionar corretamente depois que as variáveis forem configuradas.
+
+No modo de desenvolvimento sem serviços configurados, permitir apenas demonstração visual identificada como modo demo.
+
+Não simular sucesso de gravação, aprovação ou upload no ambiente de produção.
+
+---
+
+# 18. ESTRUTURA PARA DEPLOY NA VERCEL
+
+Preparar:
+
+- package.json correto.
+- Scripts de desenvolvimento e build.
+- TypeScript configurado.
+- Tailwind configurado.
+- Endpoints compatíveis com Vercel Functions.
+- Configuração de rotas e rewrites, quando necessária.
+- Arquivo de exemplo de variáveis.
+- Migrations SQL.
+- README detalhado.
+- .gitignore.
+- Documentação de administração.
+
+O build precisa funcionar com:
+
+`npm install`
+
+`npm run build`
+
+Incluir instruções de execução local do frontend e das funções de API, utilizando Vercel CLI quando necessário.
+
+Descrever como:
+
+1. Criar o projeto no Supabase.
+2. Configurar o banco de dados.
+3. Criar os buckets.
+4. Configurar as políticas de acesso.
+5. Criar o primeiro administrador.
+6. Configurar Cloudflare Turnstile.
+7. Conectar o projeto ao GitHub.
+8. Importar o repositório na Vercel.
+9. Adicionar variáveis de ambiente.
+10. Publicar o aplicativo.
+11. Testar recados e fotografias.
+12. Acessar o painel administrativo.
+
+---
+
+# 19. TESTES OBRIGATÓRIOS
+
+Antes de considerar o projeto concluído, verificar:
+
+- Contagem regressiva antes do aniversário.
+- Mudança automática no dia 27/03/2027.
+- Comportamento após o aniversário.
+- Cálculo correto de fuso horário.
+- Envio de recado válido.
+- Rejeição de formulário incompleto.
+- Tratamento de erros de conexão.
+- Envio de recado sem fotografia.
+- Envio de recado com fotografia.
+- Upload acima do tamanho permitido.
+- Bloqueio de formato não permitido.
+- Persistência do conteúdo no banco.
+- Visitante não visualiza recado pendente.
+- Administrador aprova recado.
+- Recado aprovado aparece publicamente.
+- Administrador rejeita recado.
+- Foto rejeitada não fica pública.
+- Usuário não administrador não acessa área restrita.
+- Compartilhamento via WhatsApp.
+- Navegação em telas pequenas.
+- Build de produção sem erros.
+
+Criar testes automatizados das regras críticas quando possível.
+
+Não marcar uma integração como testada caso as credenciais reais ainda não estejam configuradas.
+
+---
+
+# 20. CRITÉRIOS DE ACEITAÇÃO
+
+O projeto só estará pronto quando:
+
+1. O visitante conseguir abrir a página e ver um contador correto.
+2. A interface estiver agradável no celular.
+3. O visitante conseguir enviar um recado sem cadastro.
+4. O recado for salvo de verdade.
+5. As fotografias forem armazenadas de forma persistente e segura.
+6. O administrador conseguir revisar e aprovar conteúdo.
+7. Somente conteúdo aprovado aparecer publicamente.
+8. O site continuar funcionando após o aniversário.
+9. Não existir dependência de dados fictícios para funcionalidades principais.
+10. O repositório puder ser publicado na Vercel.
+
+## INSTRUÇÃO FINAL
+
+Implemente o projeto completo agora, criando os arquivos e componentes necessários.
+
+Priorize primeiro a experiência visual, o contador, o mural funcional, o banco de dados e a moderação.
+
+Em seguida, complete a galeria, compartilhamento, personalização e recursos adicionais.
+
+Não pare na apresentação de um layout.
+
+Não utilize dados fictícios como substitutos permanentes de funcionalidades reais.
+
+Caso alguma configuração externa precise ser feita manualmente, implemente o código correspondente e documente precisamente os passos necessários.
+
+Ao concluir, apresente o resumo da arquitetura, a relação de variáveis de ambiente, as configurações pendentes, os testes realizados e as instruções de publicação.
+
+O resultado deve ser um presente digital sofisticado, acolhedor e inesquecível para Waleska.

@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "id": "current",
+    "title": "Waleska",
+    "subtitle": "Um dia especial merece ser celebrado com muito amor.",
+    "main_message": "Cada mensagem, cada lembrança e cada gesto de carinho tornam essa data ainda mais inesquecível.",
+    "birthday_message": "Hoje é o grande dia! Feliz aniversário, Waleska!",
+    "post_birthday_message": "O dia passou, mas o carinho continua para sempre.",
+    "hero_photo": "/assets/aistudio/Retrato_elegante_em_tons_creme_ec45ed4e.png",
+    "visual_theme": {
+      "palette": "jardim_de_memorias"
+    },
+    "display_settings": {
+      "show_gallery": true,
+      "show_hugs": true,
+      "show_countdown": true
+    }
+  },
+  "messages": [],
+  "photos": [
+    {
+      "id": "waleska-official-portrait",
+      "message_id": "admin_upload",
+      "storage_path": "/assets/aistudio/Retrato_elegante_em_tons_creme_ec45ed4e.png",
+      "public_path": "/assets/aistudio/Retrato_elegante_em_tons_creme_ec45ed4e.png",
+      "status": "approved",
+      "created_at": "2026-10-29T11:20:00.000Z"
+    }
+  ],
+  "hugs": [
+    {
+      "id": "76a97fbc-0da9-4925-b686-4910c03f1192",
+      "ip": "127.0.0.1",
+      "created_at": "2026-10-29T11:18:19.334Z"
+    }
+  ]
+}
